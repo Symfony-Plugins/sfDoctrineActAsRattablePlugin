@@ -1,0 +1,83 @@
+# sfDoctrineActAsRattablePlugin #
+
+## Introduction ##
+This plugin permits to attach rates to Doctrine objects
+
+
+You can discuss about this plugin on the [google group sfDoctrineActAsRattable](http://groups.google.com/group/sfdoctrineactasrattableplugin)
+
+
+Full documentation avaible on the [symfony wiki](http://trac.symfony-project.org/wiki/SfDoctrineActAsRattablePlugin)
+
+### Features ###
+ * add remove ratings
+ * manage multiple ratings
+ * get average rating
+ * get user rating (base on the object they are associated to)
+ 
+ 
+### How it works ###
+
+Giving Rattable behavior to an object do quite the same as [Doctrine I18n](http://www.doctrine-project.org/documentation/manual/1_1/en/behaviors#core-behaviors:i18n)
+
+It create an object_rate table with how many column as criterias OR default one : rate
+
+## Installation ##
+
+### Symfony way ###
+
+ * go to your project's root
+ * Install the plugin: 
+        
+        ./symfony plugin-install http://svn.symfony-project.com/plugins/sfDoctrineActAsRattblePlugin/branches/1.2
+ 
+ * edit your schema.yml and add 
+ 
+        actAs: [Rattable] to model you want to be rattable
+ 
+ * rebuild the model: 
+ 
+        ./symfony doctrine-build-all
+ 
+ * clear cache:
+ 
+        ./symfony cc
+
+### SVN way ###
+
+ * go to your plugin directory:
+
+## Configuration ##
+
+    my_object:
+      actAs:
+        Rattable:
+          criterias: [clean_state, receptionist, equipment] # optional, only if you wanna rate specifics parts
+          max_rate: 5 # 2,10 etc. any integer number you want (more than 100 is a bad idea, work with rounding)
+          rounding_rate: 1 # default is 1, but you cant set 0.1, 0.2 etc.
+
+## API ##
+The plugin implements the following methods to the object:
+
+ * 
+
+## Helpers ##
+
+## Examples ##
+
+## Todo ##
+ * add comment to rates
+
+## Unit testing ##
+The plugin has been unit-tested, if not fully. The tests are located in http://svn.symfony-project.com/plugins/sfDoctrineActAsRattablePlugin/branches/developpment_env/test/unit/sfDoctrineActAsRattableTest.php.
+
+## Side notes ##
+I won't release pear packages, if someone is interested in managing them, let met know and I will add you as package manager.
+
+## License and credits ##
+This plugin has been created by [Mickael Kurmann](http://www.vieuxsteak.ch/) and is licensed under the MIT license.
+I took my inspiration from :
+
+ * [sfPropelActasRatableBehaviorPlugin](http://www.symfony-project.org/plugins/sfPropelActAsRatableBehaviorPlugin)
+ * [Unobtrusive AJAX Star Rating bar from Masuga](http://www.masugadesign.com/the-lab/scripts/unobtrusive-ajax-star-rating-bar/)
+ * [jQuery Star Rating plugin](http://www.fyneworks.com/jquery/star-rating/#tab-Overview)

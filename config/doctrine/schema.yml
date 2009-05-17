@@ -1,0 +1,6 @@
+rating:
+  columns:
+    rate:         integer
+    model_class:  string(255)
+    model_id:     integer
+    rated_by:     integer
