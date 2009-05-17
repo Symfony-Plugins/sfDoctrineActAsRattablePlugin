@@ -1,11 +1,12 @@
+{{{
+#!WikiMarkdown
+
 # sfDoctrineActAsRattablePlugin #
 
 ## Introduction ##
 This plugin permits to attach rates to Doctrine objects
 
-
 You can discuss about this plugin on the [google group sfDoctrineActAsRattable](http://groups.google.com/group/sfdoctrineactasrattableplugin)
-
 
 Full documentation avaible on the [symfony wiki](http://trac.symfony-project.org/wiki/SfDoctrineActAsRattablePlugin)
 
@@ -81,3 +82,5 @@ I took my inspiration from :
  * [sfPropelActasRatableBehaviorPlugin](http://www.symfony-project.org/plugins/sfPropelActAsRatableBehaviorPlugin)
  * [Unobtrusive AJAX Star Rating bar from Masuga](http://www.masugadesign.com/the-lab/scripts/unobtrusive-ajax-star-rating-bar/)
  * [jQuery Star Rating plugin](http://www.fyneworks.com/jquery/star-rating/#tab-Overview)
+ 
+}}}
