@@ -87,8 +87,8 @@ Will create 2 tables:
 
 The plugin implements the following methods to the object:
 
- * getRatingsDetails()
- * getAvgRatings()
+ * getRates()
+ * getRating()
  * addRate(RategObject $rateObject)
  * removeRatings()
 
