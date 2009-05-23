@@ -5,7 +5,7 @@ This plugin permits to attach rates to Doctrine objects
 
 You can discuss about this plugin on the [google group sfDoctrineActAsRattable](http://groups.google.com/group/sfdoctrineactasrattableplugin)
 
-Full documentation avaible on the [symfony wiki](http://trac.symfony-project.org/wiki/SfDoctrineActAsRattablePlugin)
+Full (and up to date) documentation available on the [symfony wiki](http://trac.symfony-project.org/wiki/SfDoctrineActAsRattablePlugin)
 
 ### Features ###
 
@@ -103,6 +103,8 @@ The plugin implements the following methods to the object:
 ## Examples ##
 
 ## Todo ##
+ * form creation
+ * form embending
  * notification management
  * give examples
  * create helpers
