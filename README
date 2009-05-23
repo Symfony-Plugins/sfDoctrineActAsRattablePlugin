@@ -91,6 +91,7 @@ The plugin implements the following methods to the object:
  * getRating()
  * addRate(RategObject $rateObject)
  * removeRatings()
+ * getRatesQuery()
 
 ## Events notifications types ##
 

@@ -14,48 +14,111 @@ class Rattable extends Doctrine_Template
     $this->_plugin = new Doctrine_Rattable($this->_options);
   }
 
-    /**
-     * Initialize the Rattable plugin for the template
-     *
-     * @return void
-     */
+  /**
+   * Initialize the Rattable plugin for the template
+   *
+   * @return void
+   */
   public function setUp()
   {
     $this->_plugin->initialize($this->_table);
   }
 
-    /**
-     * Get the plugin instance for the Rattable template
-     *
-     * @return void
-     */
+  /**
+   * Get the plugin instance for the Rattable template
+   *
+   * @return void
+   */
   public function getRattable()
   {
     return $this->_plugin;
   }
 
-  public function getRates()
-  {
-    return array();
-  }
-
+  /**
+   *
+   * @return array() with accorded rating
+   */
   public function getRating()
   {
-    return array();
+    $select_format = 'AVG(r.%s) %s';
+
+    $q = $this->getRatesQuery();
+
+    foreach ($this->getRattable()->getOption('criterias') as $column)
+    {
+      $select[] = sprintf($select_format, $column, $column);
+    }
+
+    $q->select(implode(', ', $select));
+    
+    $rates = $q->fetchArray();
+
+    foreach ($rates[0] as $key => $value) {
+      $rounded_rates[$key] = $this->round($value);
+    }
+
+    return $rounded_rates;
   }
 
+  public function round($value)
+  {
+    $rounding = $this->getRattable()->getOption('rounding_rate');
+    return (round($value/$rounding)*$rounding);
+  }
+
+  /**
+   *
+   * @return int number of votes
+   */
   public function getRateCount()
   {
-    return 0;
+    return $this->getRatesQuery()->count();
   }
 
-  public function addRate()
+  /**
+   *
+   * @return boolean true if ok, false else
+   */
+  public function addRate($rate)
   {
-    return true;
+    $related = $this->getRattable()->getOption('className');
+    $rate_obj = new $related();
+    $rate_obj->merge($rate);
+
+    if(!$this->getRattable()->getOption('user'))
+    {
+      $fk = $this->getRattable()->getRatedObjectFk();
+      $rate_obj->$fk = $this->getInvoker()->id;
+    }
+    else
+    {
+      $rate_obj->id = $this->getInvoker()->id;
+    }
+
+    $rate_obj->save();
+
+    $this->getInvoker()->link('Rates', $rate_obj->id);
   }
 
+  /**
+   *
+   * @return boolean true if ok, false else
+   */
   public function removeRatings()
   {
-    return false;
+    return $this->getRatesQuery()->delete()->execute();
   }
+
+  public function getRates($hydration = Doctrine::HYDRATE_RECORD)
+  {
+    return $this->getRatesQuery()->execute($hydration);
+  }
+
+  public function getRatesQuery()
+  {
+    return Doctrine_Query::create()
+    ->from(get_class($this->getInvoker()) . 'Rate as r')
+    ->where('r.' . $this->getRattable()->getRatedObjectFk() . ' = ?', array($this->getInvoker()->id));
+  }
+
 }

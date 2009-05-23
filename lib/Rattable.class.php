@@ -37,7 +37,7 @@ class Doctrine_Rattable extends Doctrine_Record_Generator
 
   public function buildRelation()
   {
-    $this->buildForeignRelation('Rate');
+    $this->buildForeignRelation('Rates');
     $this->buildLocalRelation();
   }
 
@@ -80,16 +80,17 @@ class Doctrine_Rattable extends Doctrine_Record_Generator
     }
     else
     {
-      $this->hasColumn(Doctrine_Inflector::tableize($this->_options['table']->getComponentName()) . '_id', 'integer', null, array('primary' => true));
+      $this->hasColumn($this->getRatedObjectFk(), 'integer', null, array('primary' => true));
       $this->hasColumn('id', 'integer', null, array('primary' => true, 'autoincrement' => true));
     }
+
   }
 
   public function buildLocalRelation()
   {
     // relation to the main object
     $options['foreign'] = $this->_options['table']->getIdentifier();
-    $options['local'] = ($this->_options['user']) ? 'id' : Doctrine_Inflector::tableize($this->_options['table']->getComponentName()) . '_id';
+    $options['local'] = $this->getRatedObjectFk();
     $options['type'] = Doctrine_Relation::ONE;
     $options['onDelete'] = 'CASCADE';
     $options['onUpdate'] = 'CASCADE';
@@ -107,5 +108,10 @@ class Doctrine_Rattable extends Doctrine_Record_Generator
 
       $this->_table->getRelationParser()->bind($table->getComponentName() . ' as User', $options);
     }
+  }
+
+  public function getRatedObjectFk()
+  {
+    return ($this->_options['user']) ? 'id' : Doctrine_Inflector::tableize($this->_options['table']->getComponentName()) . '_id';
   }
 }
