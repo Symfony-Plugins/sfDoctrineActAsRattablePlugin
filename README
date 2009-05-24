@@ -87,7 +87,7 @@ Will create 2 tables:
 
 The plugin implements the following methods to the object:
 
- * getRates()
+ * getRatings()
  * getRating()
  * addRate(RategObject $rateObject)
  * removeRatings()
@@ -100,12 +100,54 @@ The plugin implements the following methods to the object:
 
 ## Helpers ##
 
+### rating($object, $rating = null, $options = array()) ###
+
+     Return a rating tag based on a personnalized microformat hReview
+     
+     <div class="rating">
+       <p class="criteria">
+         rating_name :
+         <span class="rating" >value</span>/<span class="max_rate">max_rate</span>
+       </p>
+       ...
+       <p>rated by user_id</p>
+       <p class="dtreviewed">formated_date</p>
+     </div>
+     
+     custom_user_helper get User as parameter
+     
+     @param <type> $object
+     @param <type> $rating
+     @param array $options (custom_user_helper, with_date, with_user)
+     @return string div
+
+### ratings($object, $ratings = null, $options = array()) ###
+    
+     
+     Return a rating list
+     
+     <div class="ratings">
+       rating div @see rating
+     </div>
+     
+     @param Rattable $object
+     @param array/rattable object $ratings
+     @return string div
+     
+
 ## Examples ##
 
+You can checkout the dev environnment to and see comment and blog modules for examples
+
 ## Todo ##
+ * notification management
+ * API functions
+   * hasBeenRated(); # session rating
+   * hasBeenRatedByUser($user_id)
+   * getUserRating()
+   * removeUserRating($user_id)
  * form creation
  * form embending
- * notification management
  * give examples
  * create helpers
  * create components to show ratings

@@ -12,6 +12,7 @@ class Rattable extends Doctrine_Template
   {
     parent::__construct($options);
     $this->_plugin = new Doctrine_Rattable($this->_options);
+    $this->addChild(new Doctrine_Template_Timestampable($this->_options));
   }
 
   /**
@@ -22,6 +23,7 @@ class Rattable extends Doctrine_Template
   public function setUp()
   {
     $this->_plugin->initialize($this->_table);
+    $this->addListener(new sfDoctrineRecordListener());
   }
 
   /**
@@ -50,7 +52,7 @@ class Rattable extends Doctrine_Template
     }
 
     $q->select(implode(', ', $select));
-    
+
     $rates = $q->fetchArray();
 
     foreach ($rates[0] as $key => $value) {
@@ -83,7 +85,7 @@ class Rattable extends Doctrine_Template
   {
     $related = $this->getRattable()->getOption('className');
     $rate_obj = new $related();
-    $rate_obj->merge($rate);
+    $rate_obj->merge($rate, true);
 
     if(!$this->getRattable()->getOption('user'))
     {
@@ -109,9 +111,9 @@ class Rattable extends Doctrine_Template
     return $this->getRatesQuery()->delete()->execute();
   }
 
-  public function getRates($hydration = Doctrine::HYDRATE_RECORD)
+  public function getRatings($hydration = Doctrine::HYDRATE_RECORD)
   {
-    return $this->getRatesQuery()->execute($hydration);
+    return $this->getRatesQuery()->execute(array(), $hydration);
   }
 
   public function getRatesQuery()

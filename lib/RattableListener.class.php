@@ -7,7 +7,7 @@ class RattableListener extends Doctrine_Record_Listener
      *
      * @var Doctrine_AuditLog
      */
-    protected $_rattable;
+  protected $_rattable;
 
     /**
      * Instantiate AuditLog listener and set the Doctrine_AuditLog instance to the class
@@ -15,10 +15,8 @@ class RattableListener extends Doctrine_Record_Listener
      * @param   Doctrine_AuditLog $auditLog
      * @return  void
      */
-    public function __construct(Doctrine_Rattable $rattable)
-    {
-        $this->_rattable = $rattable;
-    }
-
-    
+  public function __construct(Doctrine_Rattable $rattable)
+  {
+    $this->_rattable = $rattable;
+  }
 }
