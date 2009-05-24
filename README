@@ -148,9 +148,6 @@ You can checkout the dev environnment to and see comment and blog modules for ex
    * removeUserRating($user_id)
  * form creation
  * form embending
- * give examples
- * create helpers
- * create components to show ratings
  * add icons possibility for ratings types
 
 ## Unit testing ##
